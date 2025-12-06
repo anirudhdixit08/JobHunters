@@ -9,6 +9,7 @@ import connectCloudinary from "./config/cloudinary.js";
 
 import authRouter from "./routes/userRoutes.js";
 import jobRouter from "./routes/jobRoutes.js";
+import blogRouter from "./routes/blogRoutes.js";
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use(cookieparser());
 
 app.use("/user", authRouter);
 app.use("/job", jobRouter);
+app.use("/blog", blogRouter);
 
 async function InitializeConnection() {
   console.log("Starting Connection!");

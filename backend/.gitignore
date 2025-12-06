@@ -71,3 +71,5 @@ backend/temp/*
 config/default.json
 config/production.json
 config/development.json
+
+package-lock.json
