@@ -15,13 +15,13 @@ const app = express();
 
 dotenv.config();
 
-// const corsOptions = {
-//     origin: 'http://localhost:5173',
-//     credentials : true,
-//     optionsSuccessStatus: 200
-// };
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
