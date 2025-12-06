@@ -64,5 +64,6 @@ authRouter.post("/change-password", isAuthorised, changePassword);
 
 authRouter.post("/forgot-password", forgotPassword);
 authRouter.post("/reset-password", resetPassword);
+userRouter.get("/admin/stats", isAuthorised, getAdminDashboardStats);
 
 export default authRouter;

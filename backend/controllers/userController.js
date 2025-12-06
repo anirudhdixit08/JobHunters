@@ -1,4 +1,7 @@
 import User from "../models/userModel.js";
+import Job from "../models/jobModel.js";
+import Notification from "../models/notificationModel.js";
+import Blog from "../models/blogModel.js";
 import { userValidator } from "../utils/validator.js";
 import bcrypt, { hash } from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -483,6 +486,34 @@ export const resetPassword = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Something went wrong while resetting password",
+    });
+  }
+};
+
+export const getAdminDashboardStats = async (req, res) => {
+  try {
+    const [activeJobs, publishedBlogs, liveNotifications] = await Promise.all([
+      Job.countDocuments({ status: "Active" }),
+
+      Blog.countDocuments({ status: "Published" }),
+
+      Notification.countDocuments(),
+    ]);
+
+    res.status(200).json({
+      success: true,
+      stats: {
+        activeJobs,
+        publishedBlogs,
+        liveNotifications,
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching dashboard stats:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server Error while fetching dashboard stats",
+      error: error.message,
     });
   }
 };
