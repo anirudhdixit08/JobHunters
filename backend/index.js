@@ -5,8 +5,10 @@ import cookieparser from "cookie-parser";
 
 import DBConnection from "./config/db.js";
 import RedisConnection from "./config/redis.js";
+import connectCloudinary from "./config/cloudinary.js";
 
 import authRouter from "./routes/userRoutes.js";
+import jobRouter from "./routes/jobRoutes.js";
 
 const app = express();
 
@@ -25,14 +27,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieparser());
 
 app.use("/user", authRouter);
+app.use("/job", jobRouter);
 
 async function InitializeConnection() {
   console.log("Starting Connection!");
 
   try {
-    // await Promise.all([DBConnection(), RedisConnection(), connectCloudinary()]);
-    await Promise.all([DBConnection(), RedisConnection()]);
-    // console.log("Connection to Mongo, Cloudinary and Redis Established!");
+    await Promise.all([DBConnection(), RedisConnection(), connectCloudinary()]);
+    console.log("Connection to Mongo, Cloudinary and Redis Established!");
     console.log("Connection to Mongo and Redis Established!");
 
     app.listen(process.env.PORT, () => {
